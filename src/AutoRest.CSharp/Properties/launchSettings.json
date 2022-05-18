@@ -32,6 +32,10 @@
       "commandName": "Project",
       "commandLineArgs": "--standalone $(SolutionDir)\\samples\\AppConfiguration\\Generated"
     },
+    "Authorization": {
+      "commandName": "Project",
+      "commandLineArgs": "--standalone $(SolutionDir)\\test\\TestProjects\\Authorization\\Generated"
+    },
     "azure-parameter-grouping": {
       "commandName": "Project",
       "commandLineArgs": "--standalone $(SolutionDir)\\test\\TestServerProjects\\azure-parameter-grouping\\Generated"
