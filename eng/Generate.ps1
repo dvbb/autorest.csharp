@@ -41,49 +41,7 @@ function Add-TestServer-Swagger ([string]$testName, [string]$projectSuffix, [str
     Add-Swagger "$testName$projectSuffix" $projectDirectory "--require=$configurationPath --try-require=$inputReadme --input-file=$inputFile $additionalArgs"
 }
 
-$testNames =
-    'additionalProperties',
-    'azure-parameter-grouping',
-    'azure-special-properties',
-    'body-array',
-    'body-boolean',
-    'body-byte',
-    'body-complex',
-    'body-date',
-    'body-datetime',
-    'body-datetime-rfc1123',
-    'body-dictionary',
-    'body-duration',
-    'body-file',
-    'body-formdata',
-    'body-formdata-urlencoded',
-    'body-integer',
-    'body-number',
-    'body-string',
-    'body-time',
-    'custom-baseUrl',
-    'custom-baseUrl-more-options',
-    'custom-baseUrl-paging',
-    'extensible-enums-swagger',
-    'header',
-    'httpInfrastructure',
-    'lro',
-    'lro-parameterized-endpoints',
-    'media_types',
-    'model-flattening',
-    'multiple-inheritance',
-    'non-string-enum',
-    'object-type',
-    'paging',
-    'required-optional',
-    'subscriptionId-apiVersion',
-    'url',
-    'url-multi-collectionFormat',
-    'validation',
-    'xml-service',
-    'xms-error-responses',
-    'constants',
-    'head';
+$testNames = $null
 
 if (!($Exclude -contains "TestServer"))
 {
@@ -96,25 +54,7 @@ if (!($Exclude -contains "TestServer"))
 $llcArgs = "--data-plane=true --security=AzureKey --security-header-name=Fake-Subscription-Key"
 
 $testServerLowLevelDirectory = Join-Path $repoRoot 'test' 'TestServerProjectsLowLevel'
-$testNamesLowLevel =
-    'body-complex',
-    'body-file',
-    'body-string',
-    'custom-baseUrl',
-    'custom-baseUrl-more-options',
-    'custom-baseUrl-paging',
-    'dpg-customization',
-    'dpg-initial',
-    'dpg-update1',
-    'header',
-    'httpInfrastructure',
-    'media_types',
-    'lro',
-    'paging',
-    'url-multi-collectionFormat',
-    'url',
-    'head',
-    'body-array';
+$testNamesLowLevel = $null;
 
 if (!($Exclude -contains "TestServerLowLevel"))
 {
@@ -178,17 +118,7 @@ if (!($Exclude -contains "TestProjects"))
 }
 
 # Sample configuration
-$projectNames =
-    'AppConfiguration',
-    'CognitiveServices.TextAnalytics',
-    'CognitiveSearch',
-    'Azure.AI.FormRecognizer',
-    'Azure.Storage.Tables',
-    'Azure.ResourceManager.Sample',
-    'Azure.Management.Storage',
-    'Azure.Network.Management.Interface',
-    'Azure.AI.DocumentTranslation',
-    'Azure.Analytics.Purview.Account'
+$projectNames = $null
 
 if (!($Exclude -contains "Samples"))
 {
