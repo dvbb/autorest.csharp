@@ -1922,7 +1922,7 @@
               "NotNotified"
             ],
             "x-ms-enum": {
-              "name": "Foo",
+              "name": "AccessReviewResult",
               "modelAsString": true
             }
           },
