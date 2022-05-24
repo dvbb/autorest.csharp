@@ -33,9 +33,9 @@ namespace Communication
 
         /// <summary> Gets a collection of CommunicationServiceResources in the ResourceGroupResource. </summary>
         /// <returns> An object representing collection of CommunicationServiceResources and their operations over a CommunicationServiceResource. </returns>
-        public virtual CommunicationServiceResourceCollection GetCommunicationServiceResources()
+        public virtual CommunicationServiceCollection GetCommunicationServices()
         {
-            return GetCachedClient(Client => new CommunicationServiceResourceCollection(Client, Id));
+            return GetCachedClient(Client => new CommunicationServiceCollection(Client, Id));
         }
     }
 }

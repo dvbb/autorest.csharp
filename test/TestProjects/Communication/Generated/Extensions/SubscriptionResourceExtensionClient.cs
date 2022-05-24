@@ -20,8 +20,8 @@ namespace Communication
     /// <summary> A class to add extension methods to SubscriptionResource. </summary>
     internal partial class SubscriptionResourceExtensionClient : ArmResource
     {
-        private ClientDiagnostics _communicationServiceResourceCommunicationServiceClientDiagnostics;
-        private CommunicationServiceRestOperations _communicationServiceResourceCommunicationServiceRestClient;
+        private ClientDiagnostics _communicationServiceClientDiagnostics;
+        private CommunicationServiceRestOperations _communicationServiceRestClient;
 
         /// <summary> Initializes a new instance of the <see cref="SubscriptionResourceExtensionClient"/> class for mocking. </summary>
         protected SubscriptionResourceExtensionClient()
@@ -35,8 +35,8 @@ namespace Communication
         {
         }
 
-        private ClientDiagnostics CommunicationServiceResourceCommunicationServiceClientDiagnostics => _communicationServiceResourceCommunicationServiceClientDiagnostics ??= new ClientDiagnostics("Communication", CommunicationServiceResource.ResourceType.Namespace, Diagnostics);
-        private CommunicationServiceRestOperations CommunicationServiceResourceCommunicationServiceRestClient => _communicationServiceResourceCommunicationServiceRestClient ??= new CommunicationServiceRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(CommunicationServiceResource.ResourceType));
+        private ClientDiagnostics CommunicationServiceClientDiagnostics => _communicationServiceClientDiagnostics ??= new ClientDiagnostics("Communication", CommunicationServiceResource.ResourceType.Namespace, Diagnostics);
+        private CommunicationServiceRestOperations CommunicationServiceRestClient => _communicationServiceRestClient ??= new CommunicationServiceRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(CommunicationServiceResource.ResourceType));
 
         private string GetApiVersionOrNull(ResourceType resourceType)
         {
@@ -53,11 +53,11 @@ namespace Communication
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual async Task<Response<NameAvailability>> CheckNameAvailabilityCommunicationServiceAsync(NameAvailabilityContent content = null, CancellationToken cancellationToken = default)
         {
-            using var scope = CommunicationServiceResourceCommunicationServiceClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.CheckNameAvailabilityCommunicationService");
+            using var scope = CommunicationServiceClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.CheckNameAvailabilityCommunicationService");
             scope.Start();
             try
             {
-                var response = await CommunicationServiceResourceCommunicationServiceRestClient.CheckNameAvailabilityAsync(Id.SubscriptionId, content, cancellationToken).ConfigureAwait(false);
+                var response = await CommunicationServiceRestClient.CheckNameAvailabilityAsync(Id.SubscriptionId, content, cancellationToken).ConfigureAwait(false);
                 return response;
             }
             catch (Exception e)
@@ -76,11 +76,11 @@ namespace Communication
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response<NameAvailability> CheckNameAvailabilityCommunicationService(NameAvailabilityContent content = null, CancellationToken cancellationToken = default)
         {
-            using var scope = CommunicationServiceResourceCommunicationServiceClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.CheckNameAvailabilityCommunicationService");
+            using var scope = CommunicationServiceClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.CheckNameAvailabilityCommunicationService");
             scope.Start();
             try
             {
-                var response = CommunicationServiceResourceCommunicationServiceRestClient.CheckNameAvailability(Id.SubscriptionId, content, cancellationToken);
+                var response = CommunicationServiceRestClient.CheckNameAvailability(Id.SubscriptionId, content, cancellationToken);
                 return response;
             }
             catch (Exception e)
@@ -97,15 +97,15 @@ namespace Communication
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> An async collection of <see cref="CommunicationServiceResource" /> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<CommunicationServiceResource> GetCommunicationServiceResourcesAsync(CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<CommunicationServiceResource> GetCommunicationServicesAsync(CancellationToken cancellationToken = default)
         {
             async Task<Page<CommunicationServiceResource>> FirstPageFunc(int? pageSizeHint)
             {
-                using var scope = CommunicationServiceResourceCommunicationServiceClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.GetCommunicationServiceResources");
+                using var scope = CommunicationServiceClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.GetCommunicationServices");
                 scope.Start();
                 try
                 {
-                    var response = await CommunicationServiceResourceCommunicationServiceRestClient.ListBySubscriptionAsync(Id.SubscriptionId, cancellationToken: cancellationToken).ConfigureAwait(false);
+                    var response = await CommunicationServiceRestClient.ListBySubscriptionAsync(Id.SubscriptionId, cancellationToken: cancellationToken).ConfigureAwait(false);
                     return Page.FromValues(response.Value.Value.Select(value => new CommunicationServiceResource(Client, value)), response.Value.NextLink, response.GetRawResponse());
                 }
                 catch (Exception e)
@@ -116,11 +116,11 @@ namespace Communication
             }
             async Task<Page<CommunicationServiceResource>> NextPageFunc(string nextLink, int? pageSizeHint)
             {
-                using var scope = CommunicationServiceResourceCommunicationServiceClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.GetCommunicationServiceResources");
+                using var scope = CommunicationServiceClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.GetCommunicationServices");
                 scope.Start();
                 try
                 {
-                    var response = await CommunicationServiceResourceCommunicationServiceRestClient.ListBySubscriptionNextPageAsync(nextLink, Id.SubscriptionId, cancellationToken: cancellationToken).ConfigureAwait(false);
+                    var response = await CommunicationServiceRestClient.ListBySubscriptionNextPageAsync(nextLink, Id.SubscriptionId, cancellationToken: cancellationToken).ConfigureAwait(false);
                     return Page.FromValues(response.Value.Value.Select(value => new CommunicationServiceResource(Client, value)), response.Value.NextLink, response.GetRawResponse());
                 }
                 catch (Exception e)
@@ -139,15 +139,15 @@ namespace Communication
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of <see cref="CommunicationServiceResource" /> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<CommunicationServiceResource> GetCommunicationServiceResources(CancellationToken cancellationToken = default)
+        public virtual Pageable<CommunicationServiceResource> GetCommunicationServices(CancellationToken cancellationToken = default)
         {
             Page<CommunicationServiceResource> FirstPageFunc(int? pageSizeHint)
             {
-                using var scope = CommunicationServiceResourceCommunicationServiceClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.GetCommunicationServiceResources");
+                using var scope = CommunicationServiceClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.GetCommunicationServices");
                 scope.Start();
                 try
                 {
-                    var response = CommunicationServiceResourceCommunicationServiceRestClient.ListBySubscription(Id.SubscriptionId, cancellationToken: cancellationToken);
+                    var response = CommunicationServiceRestClient.ListBySubscription(Id.SubscriptionId, cancellationToken: cancellationToken);
                     return Page.FromValues(response.Value.Value.Select(value => new CommunicationServiceResource(Client, value)), response.Value.NextLink, response.GetRawResponse());
                 }
                 catch (Exception e)
@@ -158,11 +158,11 @@ namespace Communication
             }
             Page<CommunicationServiceResource> NextPageFunc(string nextLink, int? pageSizeHint)
             {
-                using var scope = CommunicationServiceResourceCommunicationServiceClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.GetCommunicationServiceResources");
+                using var scope = CommunicationServiceClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.GetCommunicationServices");
                 scope.Start();
                 try
                 {
-                    var response = CommunicationServiceResourceCommunicationServiceRestClient.ListBySubscriptionNextPage(nextLink, Id.SubscriptionId, cancellationToken: cancellationToken);
+                    var response = CommunicationServiceRestClient.ListBySubscriptionNextPage(nextLink, Id.SubscriptionId, cancellationToken: cancellationToken);
                     return Page.FromValues(response.Value.Value.Select(value => new CommunicationServiceResource(Client, value)), response.Value.NextLink, response.GetRawResponse());
                 }
                 catch (Exception e)

@@ -13,7 +13,7 @@ using Communication.Models;
 
 namespace Communication
 {
-    public partial class CommunicationServiceResourceData : IUtf8JsonSerializable
+    public partial class CommunicationServiceData : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -45,7 +45,7 @@ namespace Communication
             writer.WriteEndObject();
         }
 
-        internal static CommunicationServiceResourceData DeserializeCommunicationServiceResourceData(JsonElement element)
+        internal static CommunicationServiceData DeserializeCommunicationServiceData(JsonElement element)
         {
             Optional<string> location = default;
             Optional<IDictionary<string, string>> tags = default;
@@ -149,7 +149,7 @@ namespace Communication
                     continue;
                 }
             }
-            return new CommunicationServiceResourceData(id, name, type, systemData, Optional.ToNullable(provisioningState), hostName.Value, dataLocation.Value, notificationHubId.Value, version.Value, immutableResourceId.Value, location.Value, Optional.ToDictionary(tags));
+            return new CommunicationServiceData(id, name, type, systemData, Optional.ToNullable(provisioningState), hostName.Value, dataLocation.Value, notificationHubId.Value, version.Value, immutableResourceId.Value, location.Value, Optional.ToDictionary(tags));
         }
     }
 }

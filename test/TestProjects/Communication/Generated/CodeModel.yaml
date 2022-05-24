@@ -238,7 +238,7 @@ schemas: !Schemas
           version: 2020-08-20-preview
       language: !Languages 
         default:
-          name: NameAvailabilityParametersType
+          name: NameAvailabilityOptionsType
           description: The resource type. Should be always "Microsoft.Communication/CommunicationServices".
       protocol: !Protocols {}
     - !StringSchema &ref_30
@@ -248,7 +248,7 @@ schemas: !Schemas
           version: 2020-08-20-preview
       language: !Languages 
         default:
-          name: NameAvailabilityParametersName
+          name: NameAvailabilityOptionsName
           description: The CommunicationService name to validate. e.g."my-CommunicationService-name-here"
       protocol: !Protocols {}
     - !StringSchema &ref_32
@@ -289,7 +289,7 @@ schemas: !Schemas
           version: 2020-08-20-preview
       language: !Languages 
         default:
-          name: LinkNotificationHubParametersResourceId
+          name: LinkNotificationHubOptionsResourceId
           description: The resource ID of the notification hub
       protocol: !Protocols {}
     - !StringSchema &ref_35
@@ -299,7 +299,7 @@ schemas: !Schemas
           version: 2020-08-20-preview
       language: !Languages 
         default:
-          name: LinkNotificationHubParametersConnectionString
+          name: LinkNotificationHubOptionsConnectionString
           description: Connection string for the notification hub
       protocol: !Protocols {}
     - !StringSchema &ref_36
@@ -1186,7 +1186,7 @@ schemas: !Schemas
         - input
       language: !Languages 
         default:
-          name: NameAvailabilityParameters
+          name: NameAvailabilityOptions
           description: Data POST-ed to the nameAvailability action
           namespace: ''
       protocol: !Protocols {}
@@ -1260,7 +1260,7 @@ schemas: !Schemas
         - input
       language: !Languages 
         default:
-          name: LinkNotificationHubParameters
+          name: LinkNotificationHubOptions
           description: Description of an Azure Notification Hub to link to the communication service
           namespace: ''
       protocol: !Protocols {}
@@ -1586,7 +1586,7 @@ schemas: !Schemas
                 - input
               language: !Languages 
                 default:
-                  name: CommunicationServiceResource
+                  name: CommunicationService
                   description: A class representing a CommunicationService resource.
                   namespace: ''
               protocol: !Protocols {}
@@ -1691,7 +1691,7 @@ schemas: !Schemas
         - input
       language: !Languages 
         default:
-          name: RegenerateKeyParameters
+          name: RegenerateKeyOptions
           description: Parameters describes the request to regenerate access keys
           namespace: ''
       protocol: !Protocols {}

@@ -16,7 +16,7 @@ namespace Communication.Models
     {
         internal static CommunicationServiceResourceList DeserializeCommunicationServiceResourceList(JsonElement element)
         {
-            Optional<IReadOnlyList<CommunicationServiceResourceData>> value = default;
+            Optional<IReadOnlyList<CommunicationServiceData>> value = default;
             Optional<string> nextLink = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -27,10 +27,10 @@ namespace Communication.Models
                         property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    List<CommunicationServiceResourceData> array = new List<CommunicationServiceResourceData>();
+                    List<CommunicationServiceData> array = new List<CommunicationServiceData>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(CommunicationServiceResourceData.DeserializeCommunicationServiceResourceData(item));
+                        array.Add(CommunicationServiceData.DeserializeCommunicationServiceData(item));
                     }
                     value = array;
                     continue;

@@ -17,7 +17,7 @@ namespace Communication.Models
         /// <summary> Initializes a new instance of CommunicationServiceResourceList. </summary>
         internal CommunicationServiceResourceList()
         {
-            Value = new ChangeTrackingList<CommunicationServiceResourceData>();
+            Value = new ChangeTrackingList<CommunicationServiceData>();
         }
 
         /// <summary> Initializes a new instance of CommunicationServiceResourceList. </summary>
@@ -26,14 +26,14 @@ namespace Communication.Models
         /// The URL the client should use to fetch the next page (per server side paging).
         /// It&apos;s null for now, added for future use.
         /// </param>
-        internal CommunicationServiceResourceList(IReadOnlyList<CommunicationServiceResourceData> value, string nextLink)
+        internal CommunicationServiceResourceList(IReadOnlyList<CommunicationServiceData> value, string nextLink)
         {
             Value = value;
             NextLink = nextLink;
         }
 
         /// <summary> List of CommunicationService. </summary>
-        public IReadOnlyList<CommunicationServiceResourceData> Value { get; }
+        public IReadOnlyList<CommunicationServiceData> Value { get; }
         /// <summary>
         /// The URL the client should use to fetch the next page (per server side paging).
         /// It&apos;s null for now, added for future use.

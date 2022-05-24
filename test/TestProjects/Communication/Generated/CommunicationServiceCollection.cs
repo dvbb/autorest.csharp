@@ -23,26 +23,26 @@ namespace Communication
     /// <summary>
     /// A class representing a collection of <see cref="CommunicationServiceResource" /> and their operations.
     /// Each <see cref="CommunicationServiceResource" /> in the collection will belong to the same instance of <see cref="ResourceGroupResource" />.
-    /// To get a <see cref="CommunicationServiceResourceCollection" /> instance call the GetCommunicationServiceResources method from an instance of <see cref="ResourceGroupResource" />.
+    /// To get a <see cref="CommunicationServiceCollection" /> instance call the GetCommunicationServices method from an instance of <see cref="ResourceGroupResource" />.
     /// </summary>
-    public partial class CommunicationServiceResourceCollection : ArmCollection, IEnumerable<CommunicationServiceResource>, IAsyncEnumerable<CommunicationServiceResource>
+    public partial class CommunicationServiceCollection : ArmCollection, IEnumerable<CommunicationServiceResource>, IAsyncEnumerable<CommunicationServiceResource>
     {
-        private readonly ClientDiagnostics _communicationServiceResourceCommunicationServiceClientDiagnostics;
-        private readonly CommunicationServiceRestOperations _communicationServiceResourceCommunicationServiceRestClient;
+        private readonly ClientDiagnostics _communicationServiceClientDiagnostics;
+        private readonly CommunicationServiceRestOperations _communicationServiceRestClient;
 
-        /// <summary> Initializes a new instance of the <see cref="CommunicationServiceResourceCollection"/> class for mocking. </summary>
-        protected CommunicationServiceResourceCollection()
+        /// <summary> Initializes a new instance of the <see cref="CommunicationServiceCollection"/> class for mocking. </summary>
+        protected CommunicationServiceCollection()
         {
         }
 
-        /// <summary> Initializes a new instance of the <see cref="CommunicationServiceResourceCollection"/> class. </summary>
+        /// <summary> Initializes a new instance of the <see cref="CommunicationServiceCollection"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
         /// <param name="id"> The identifier of the parent resource that is the target of operations. </param>
-        internal CommunicationServiceResourceCollection(ArmClient client, ResourceIdentifier id) : base(client, id)
+        internal CommunicationServiceCollection(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
-            _communicationServiceResourceCommunicationServiceClientDiagnostics = new ClientDiagnostics("Communication", CommunicationServiceResource.ResourceType.Namespace, Diagnostics);
-            TryGetApiVersion(CommunicationServiceResource.ResourceType, out string communicationServiceResourceCommunicationServiceApiVersion);
-            _communicationServiceResourceCommunicationServiceRestClient = new CommunicationServiceRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, communicationServiceResourceCommunicationServiceApiVersion);
+            _communicationServiceClientDiagnostics = new ClientDiagnostics("Communication", CommunicationServiceResource.ResourceType.Namespace, Diagnostics);
+            TryGetApiVersion(CommunicationServiceResource.ResourceType, out string communicationServiceApiVersion);
+            _communicationServiceRestClient = new CommunicationServiceRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, communicationServiceApiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -65,16 +65,16 @@ namespace Communication
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="communicationServiceName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="communicationServiceName"/> is null. </exception>
-        public virtual async Task<ArmOperation<CommunicationServiceResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string communicationServiceName, CommunicationServiceResourceData data = null, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<CommunicationServiceResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string communicationServiceName, CommunicationServiceData data = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(communicationServiceName, nameof(communicationServiceName));
 
-            using var scope = _communicationServiceResourceCommunicationServiceClientDiagnostics.CreateScope("CommunicationServiceResourceCollection.CreateOrUpdate");
+            using var scope = _communicationServiceClientDiagnostics.CreateScope("CommunicationServiceCollection.CreateOrUpdate");
             scope.Start();
             try
             {
-                var response = await _communicationServiceResourceCommunicationServiceRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, communicationServiceName, data, cancellationToken).ConfigureAwait(false);
-                var operation = new CommunicationArmOperation<CommunicationServiceResource>(new CommunicationServiceResourceOperationSource(Client), _communicationServiceResourceCommunicationServiceClientDiagnostics, Pipeline, _communicationServiceResourceCommunicationServiceRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, communicationServiceName, data).Request, response, OperationFinalStateVia.Location);
+                var response = await _communicationServiceRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, communicationServiceName, data, cancellationToken).ConfigureAwait(false);
+                var operation = new CommunicationArmOperation<CommunicationServiceResource>(new CommunicationServiceOperationSource(Client), _communicationServiceClientDiagnostics, Pipeline, _communicationServiceRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, communicationServiceName, data).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -97,16 +97,16 @@ namespace Communication
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="communicationServiceName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="communicationServiceName"/> is null. </exception>
-        public virtual ArmOperation<CommunicationServiceResource> CreateOrUpdate(WaitUntil waitUntil, string communicationServiceName, CommunicationServiceResourceData data = null, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<CommunicationServiceResource> CreateOrUpdate(WaitUntil waitUntil, string communicationServiceName, CommunicationServiceData data = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(communicationServiceName, nameof(communicationServiceName));
 
-            using var scope = _communicationServiceResourceCommunicationServiceClientDiagnostics.CreateScope("CommunicationServiceResourceCollection.CreateOrUpdate");
+            using var scope = _communicationServiceClientDiagnostics.CreateScope("CommunicationServiceCollection.CreateOrUpdate");
             scope.Start();
             try
             {
-                var response = _communicationServiceResourceCommunicationServiceRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, communicationServiceName, data, cancellationToken);
-                var operation = new CommunicationArmOperation<CommunicationServiceResource>(new CommunicationServiceResourceOperationSource(Client), _communicationServiceResourceCommunicationServiceClientDiagnostics, Pipeline, _communicationServiceResourceCommunicationServiceRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, communicationServiceName, data).Request, response, OperationFinalStateVia.Location);
+                var response = _communicationServiceRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, communicationServiceName, data, cancellationToken);
+                var operation = new CommunicationArmOperation<CommunicationServiceResource>(new CommunicationServiceOperationSource(Client), _communicationServiceClientDiagnostics, Pipeline, _communicationServiceRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, communicationServiceName, data).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -131,11 +131,11 @@ namespace Communication
         {
             Argument.AssertNotNullOrEmpty(communicationServiceName, nameof(communicationServiceName));
 
-            using var scope = _communicationServiceResourceCommunicationServiceClientDiagnostics.CreateScope("CommunicationServiceResourceCollection.Get");
+            using var scope = _communicationServiceClientDiagnostics.CreateScope("CommunicationServiceCollection.Get");
             scope.Start();
             try
             {
-                var response = await _communicationServiceResourceCommunicationServiceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, communicationServiceName, cancellationToken).ConfigureAwait(false);
+                var response = await _communicationServiceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, communicationServiceName, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new CommunicationServiceResource(Client, response.Value), response.GetRawResponse());
@@ -160,11 +160,11 @@ namespace Communication
         {
             Argument.AssertNotNullOrEmpty(communicationServiceName, nameof(communicationServiceName));
 
-            using var scope = _communicationServiceResourceCommunicationServiceClientDiagnostics.CreateScope("CommunicationServiceResourceCollection.Get");
+            using var scope = _communicationServiceClientDiagnostics.CreateScope("CommunicationServiceCollection.Get");
             scope.Start();
             try
             {
-                var response = _communicationServiceResourceCommunicationServiceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, communicationServiceName, cancellationToken);
+                var response = _communicationServiceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, communicationServiceName, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new CommunicationServiceResource(Client, response.Value), response.GetRawResponse());
@@ -187,11 +187,11 @@ namespace Communication
         {
             async Task<Page<CommunicationServiceResource>> FirstPageFunc(int? pageSizeHint)
             {
-                using var scope = _communicationServiceResourceCommunicationServiceClientDiagnostics.CreateScope("CommunicationServiceResourceCollection.GetAll");
+                using var scope = _communicationServiceClientDiagnostics.CreateScope("CommunicationServiceCollection.GetAll");
                 scope.Start();
                 try
                 {
-                    var response = await _communicationServiceResourceCommunicationServiceRestClient.ListByResourceGroupAsync(Id.SubscriptionId, Id.ResourceGroupName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                    var response = await _communicationServiceRestClient.ListByResourceGroupAsync(Id.SubscriptionId, Id.ResourceGroupName, cancellationToken: cancellationToken).ConfigureAwait(false);
                     return Page.FromValues(response.Value.Value.Select(value => new CommunicationServiceResource(Client, value)), response.Value.NextLink, response.GetRawResponse());
                 }
                 catch (Exception e)
@@ -202,11 +202,11 @@ namespace Communication
             }
             async Task<Page<CommunicationServiceResource>> NextPageFunc(string nextLink, int? pageSizeHint)
             {
-                using var scope = _communicationServiceResourceCommunicationServiceClientDiagnostics.CreateScope("CommunicationServiceResourceCollection.GetAll");
+                using var scope = _communicationServiceClientDiagnostics.CreateScope("CommunicationServiceCollection.GetAll");
                 scope.Start();
                 try
                 {
-                    var response = await _communicationServiceResourceCommunicationServiceRestClient.ListByResourceGroupNextPageAsync(nextLink, Id.SubscriptionId, Id.ResourceGroupName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                    var response = await _communicationServiceRestClient.ListByResourceGroupNextPageAsync(nextLink, Id.SubscriptionId, Id.ResourceGroupName, cancellationToken: cancellationToken).ConfigureAwait(false);
                     return Page.FromValues(response.Value.Value.Select(value => new CommunicationServiceResource(Client, value)), response.Value.NextLink, response.GetRawResponse());
                 }
                 catch (Exception e)
@@ -229,11 +229,11 @@ namespace Communication
         {
             Page<CommunicationServiceResource> FirstPageFunc(int? pageSizeHint)
             {
-                using var scope = _communicationServiceResourceCommunicationServiceClientDiagnostics.CreateScope("CommunicationServiceResourceCollection.GetAll");
+                using var scope = _communicationServiceClientDiagnostics.CreateScope("CommunicationServiceCollection.GetAll");
                 scope.Start();
                 try
                 {
-                    var response = _communicationServiceResourceCommunicationServiceRestClient.ListByResourceGroup(Id.SubscriptionId, Id.ResourceGroupName, cancellationToken: cancellationToken);
+                    var response = _communicationServiceRestClient.ListByResourceGroup(Id.SubscriptionId, Id.ResourceGroupName, cancellationToken: cancellationToken);
                     return Page.FromValues(response.Value.Value.Select(value => new CommunicationServiceResource(Client, value)), response.Value.NextLink, response.GetRawResponse());
                 }
                 catch (Exception e)
@@ -244,11 +244,11 @@ namespace Communication
             }
             Page<CommunicationServiceResource> NextPageFunc(string nextLink, int? pageSizeHint)
             {
-                using var scope = _communicationServiceResourceCommunicationServiceClientDiagnostics.CreateScope("CommunicationServiceResourceCollection.GetAll");
+                using var scope = _communicationServiceClientDiagnostics.CreateScope("CommunicationServiceCollection.GetAll");
                 scope.Start();
                 try
                 {
-                    var response = _communicationServiceResourceCommunicationServiceRestClient.ListByResourceGroupNextPage(nextLink, Id.SubscriptionId, Id.ResourceGroupName, cancellationToken: cancellationToken);
+                    var response = _communicationServiceRestClient.ListByResourceGroupNextPage(nextLink, Id.SubscriptionId, Id.ResourceGroupName, cancellationToken: cancellationToken);
                     return Page.FromValues(response.Value.Value.Select(value => new CommunicationServiceResource(Client, value)), response.Value.NextLink, response.GetRawResponse());
                 }
                 catch (Exception e)
@@ -273,11 +273,11 @@ namespace Communication
         {
             Argument.AssertNotNullOrEmpty(communicationServiceName, nameof(communicationServiceName));
 
-            using var scope = _communicationServiceResourceCommunicationServiceClientDiagnostics.CreateScope("CommunicationServiceResourceCollection.Exists");
+            using var scope = _communicationServiceClientDiagnostics.CreateScope("CommunicationServiceCollection.Exists");
             scope.Start();
             try
             {
-                var response = await _communicationServiceResourceCommunicationServiceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, communicationServiceName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _communicationServiceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, communicationServiceName, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -300,11 +300,11 @@ namespace Communication
         {
             Argument.AssertNotNullOrEmpty(communicationServiceName, nameof(communicationServiceName));
 
-            using var scope = _communicationServiceResourceCommunicationServiceClientDiagnostics.CreateScope("CommunicationServiceResourceCollection.Exists");
+            using var scope = _communicationServiceClientDiagnostics.CreateScope("CommunicationServiceCollection.Exists");
             scope.Start();
             try
             {
-                var response = _communicationServiceResourceCommunicationServiceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, communicationServiceName, cancellationToken: cancellationToken);
+                var response = _communicationServiceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, communicationServiceName, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)

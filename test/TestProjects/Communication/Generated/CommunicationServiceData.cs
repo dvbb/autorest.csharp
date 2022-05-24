@@ -12,16 +12,16 @@ using Communication.Models;
 
 namespace Communication
 {
-    /// <summary> A class representing the CommunicationServiceResource data model. </summary>
-    public partial class CommunicationServiceResourceData : ResourceData
+    /// <summary> A class representing the CommunicationService data model. </summary>
+    public partial class CommunicationServiceData : ResourceData
     {
-        /// <summary> Initializes a new instance of CommunicationServiceResourceData. </summary>
-        public CommunicationServiceResourceData()
+        /// <summary> Initializes a new instance of CommunicationServiceData. </summary>
+        public CommunicationServiceData()
         {
             Tags = new ChangeTrackingDictionary<string, string>();
         }
 
-        /// <summary> Initializes a new instance of CommunicationServiceResourceData. </summary>
+        /// <summary> Initializes a new instance of CommunicationServiceData. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
@@ -34,7 +34,7 @@ namespace Communication
         /// <param name="immutableResourceId"> The immutable resource Id of the communication service. </param>
         /// <param name="location"> The Azure location where the CommunicationService is running. </param>
         /// <param name="tags"> Tags of the service which is a list of key value pairs that describe the resource. </param>
-        internal CommunicationServiceResourceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ProvisioningState? provisioningState, string hostName, string dataLocation, string notificationHubId, string version, string immutableResourceId, string location, IDictionary<string, string> tags) : base(id, name, resourceType, systemData)
+        internal CommunicationServiceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ProvisioningState? provisioningState, string hostName, string dataLocation, string notificationHubId, string version, string immutableResourceId, string location, IDictionary<string, string> tags) : base(id, name, resourceType, systemData)
         {
             ProvisioningState = provisioningState;
             HostName = hostName;

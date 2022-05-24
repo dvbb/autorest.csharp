@@ -11,7 +11,7 @@ using Azure.Core;
 
 namespace Communication.Models
 {
-    public partial class CommunicationServiceResourcePatch : IUtf8JsonSerializable
+    public partial class CommunicationServicePatch : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -30,7 +30,7 @@ namespace Communication.Models
             writer.WriteEndObject();
         }
 
-        internal static CommunicationServiceResourcePatch DeserializeCommunicationServiceResourcePatch(JsonElement element)
+        internal static CommunicationServicePatch DeserializeCommunicationServicePatch(JsonElement element)
         {
             Optional<IDictionary<string, string>> tags = default;
             foreach (var property in element.EnumerateObject())
@@ -51,7 +51,7 @@ namespace Communication.Models
                     continue;
                 }
             }
-            return new CommunicationServiceResourcePatch(Optional.ToDictionary(tags));
+            return new CommunicationServicePatch(Optional.ToDictionary(tags));
         }
     }
 }

@@ -11,17 +11,17 @@ using Azure.Core;
 namespace Communication.Models
 {
     /// <summary> An ARM resource with that can accept tags. </summary>
-    public partial class CommunicationServiceResourcePatch
+    public partial class CommunicationServicePatch
     {
-        /// <summary> Initializes a new instance of CommunicationServiceResourcePatch. </summary>
-        public CommunicationServiceResourcePatch()
+        /// <summary> Initializes a new instance of CommunicationServicePatch. </summary>
+        public CommunicationServicePatch()
         {
             Tags = new ChangeTrackingDictionary<string, string>();
         }
 
-        /// <summary> Initializes a new instance of CommunicationServiceResourcePatch. </summary>
+        /// <summary> Initializes a new instance of CommunicationServicePatch. </summary>
         /// <param name="tags"> Tags of the service which is a list of key value pairs that describe the resource. </param>
-        internal CommunicationServiceResourcePatch(IDictionary<string, string> tags)
+        internal CommunicationServicePatch(IDictionary<string, string> tags)
         {
             Tags = tags;
         }

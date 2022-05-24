@@ -14,11 +14,11 @@ using Azure.ResourceManager;
 
 namespace Communication
 {
-    internal class CommunicationServiceResourceOperationSource : IOperationSource<CommunicationServiceResource>
+    internal class CommunicationServiceOperationSource : IOperationSource<CommunicationServiceResource>
     {
         private readonly ArmClient _client;
 
-        internal CommunicationServiceResourceOperationSource(ArmClient client)
+        internal CommunicationServiceOperationSource(ArmClient client)
         {
             _client = client;
         }
@@ -26,14 +26,14 @@ namespace Communication
         CommunicationServiceResource IOperationSource<CommunicationServiceResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            var data = CommunicationServiceResourceData.DeserializeCommunicationServiceResourceData(document.RootElement);
+            var data = CommunicationServiceData.DeserializeCommunicationServiceData(document.RootElement);
             return new CommunicationServiceResource(_client, data);
         }
 
         async ValueTask<CommunicationServiceResource> IOperationSource<CommunicationServiceResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            var data = CommunicationServiceResourceData.DeserializeCommunicationServiceResourceData(document.RootElement);
+            var data = CommunicationServiceData.DeserializeCommunicationServiceData(document.RootElement);
             return new CommunicationServiceResource(_client, data);
         }
     }
